@@ -7,19 +7,22 @@ const cors = require("cors");
 const app = express();
 
 dotenv.config();
-app.use(express.json());
 
 // CORS configuration
 const corsOptions = {
   origin: [
     "https://seat-booking-with-user-auth.vercel.app",
     "https://seat-booking-with-user-auth-9k82.vercel.app",
-  ], // Allowed origins
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allowed methods
-  allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
-  credentials: true, // Allow credentials (if needed)
+  ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 };
+
 app.use(cors(corsOptions));
+app.options("*", cors(corsOptions)); // Explicitly handle preflight requests
+
+app.use(express.json());
 
 // Connect to database
 connectionDB();

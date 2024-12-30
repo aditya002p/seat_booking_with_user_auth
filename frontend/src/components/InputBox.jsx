@@ -2,7 +2,7 @@ import { Button, Flex, Input, Text, VStack, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Seat from "./Seat";
 import axios from "axios";
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from "../context/AuthContext";
 
 export default function InputBox({ fetchData }) {
   const [numberOfSeats, setNumberOfSeats] = useState();
@@ -35,7 +35,7 @@ export default function InputBox({ fetchData }) {
     setIsBooking(true);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/seats/book",
+        "https://seat-booking-with-user-auth.vercel.app/api/seats/book",
         { numOfSeats: numberOfSeats },
         {
           headers: {
@@ -48,10 +48,7 @@ export default function InputBox({ fetchData }) {
       displayToast("success", "Seats successfully booked!");
     } catch (error) {
       console.error("Error booking seats:", error);
-      displayToast(
-        "error",
-        error.response?.data?.message || "Booking failed."
-      );
+      displayToast("error", error.response?.data?.message || "Booking failed.");
     } finally {
       setIsBooking(false);
     }
@@ -60,7 +57,9 @@ export default function InputBox({ fetchData }) {
   const handleResetBooking = async () => {
     setIsResetting(true);
     try {
-      await axios.post("http://localhost:8080/api/seats");
+      await axios.post(
+        "https://seat-booking-with-user-auth.vercel.app/api/seats"
+      );
       setBookedSeats([]);
       fetchData();
       displayToast("success", "Booking successfully reset!");
@@ -81,11 +80,7 @@ export default function InputBox({ fetchData }) {
           Booked Seats:
         </Text>
         {bookedSeats.map((seat) => (
-          <Seat
-            key={seat._id}
-            isBooked={true}
-            seatNumber={seat.seatNumber}
-          />
+          <Seat key={seat._id} isBooked={true} seatNumber={seat.seatNumber} />
         ))}
       </Flex>
 

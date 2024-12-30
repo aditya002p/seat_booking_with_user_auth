@@ -21,7 +21,7 @@ export default function Compartment({ loading, data, onCancelBooking }) {
       h="full"
       gap={4}
     >
-      <Heading size="md" textAlign="center">
+      <Heading size="md" textAlign="center" color="black">
         {loading ? "Please Wait." : "Ticket Booking"}
       </Heading>
 

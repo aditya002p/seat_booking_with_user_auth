@@ -5,7 +5,7 @@ const {
   getSeats,
   resetSeatsController,
   cancelBooking,
-} = require("../controllers/seats.controller");
+} = require("../controller/seats.controller");
 const { protect } = require("../middleware/auth.middleware");
 
 // Check if all controllers are defined before setting up routes

@@ -35,7 +35,7 @@ export default function InputBox({ fetchData }) {
     setIsBooking(true);
     try {
       const response = await axios.post(
-        "https://seat-booking-with-user-auth.vercel.app/api/seats/book",
+        "http://localhost:8080/api/seats/book",
         { numOfSeats: numberOfSeats },
         {
           headers: {
@@ -57,9 +57,7 @@ export default function InputBox({ fetchData }) {
   const handleResetBooking = async () => {
     setIsResetting(true);
     try {
-      await axios.post(
-        "https://seat-booking-with-user-auth.vercel.app/api/seats"
-      );
+      await axios.post("http://localhost:8080/api/seats");
       setBookedSeats([]);
       fetchData();
       displayToast("success", "Booking successfully reset!");

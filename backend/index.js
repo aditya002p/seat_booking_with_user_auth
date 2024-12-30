@@ -4,10 +4,7 @@ const seatsRoutes = require("./routes/seats.routes");
 const authRoutes = require("./routes/auth.routes");
 const dotenv = require("dotenv");
 const cors = require("cors");
-
 const app = express();
-
-// Middleware
 app.use(cors());
 dotenv.config();
 app.use(express.json());

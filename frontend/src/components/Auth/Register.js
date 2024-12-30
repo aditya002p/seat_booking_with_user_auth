@@ -45,7 +45,7 @@ const Register = () => {
     setLoading(true);
     try {
       const { data } = await axios.post(
-        "https://seat-booking-with-user-auth.vercel.app/api/auth/register",
+        "http://localhost:8080/api/auth/register",
         {
           username: formData.username,
           email: formData.email,

@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const BASE_URL =
-  process.env.REACT_APP_API_URL ||
-  "https://seat-booking-with-user-auth.vercel.app/api";
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/api";
 
 // Create axios instance with default config
 const api = axios.create({
@@ -26,59 +24,6 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor to handle common errors
-api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem("user");
-      window.location.href = "/login";
-    }
-    return Promise.reject(error);
-  }
-);
-
-// Seats API calls
-export const fetchSeats = async () => {
-  try {
-    const { data } = await api.get("/seats");
-    return data.seats || [];
-  } catch (error) {
-    console.error("Error fetching seats:", error);
-    throw error;
-  }
-};
-
-export const bookSeats = async (numOfSeats) => {
-  try {
-    const { data } = await api.post("/seats/book", { numOfSeats });
-    return data.data;
-  } catch (error) {
-    console.error("Error booking seats:", error);
-    throw error;
-  }
-};
-
-export const cancelBooking = async (seatId) => {
-  try {
-    const { data } = await api.post(`/seats/cancel/${seatId}`);
-    return data;
-  } catch (error) {
-    console.error("Error canceling booking:", error);
-    throw error;
-  }
-};
-
-export const resetBookings = async () => {
-  try {
-    const { data } = await api.post("/seats");
-    return data;
-  } catch (error) {
-    console.error("Error resetting bookings:", error);
-    throw error;
-  }
-};
-
 // Auth API calls
 export const loginUser = async (credentials) => {
   const { data } = await api.post("/auth/login", credentials);
@@ -87,6 +32,27 @@ export const loginUser = async (credentials) => {
 
 export const registerUser = async (userData) => {
   const { data } = await api.post("/auth/register", userData);
+  return data;
+};
+
+// Seats API calls
+export const fetchSeats = async () => {
+  const { data } = await api.get("/seats");
+  return data.seats;
+};
+
+export const bookSeats = async (numOfSeats) => {
+  const { data } = await api.post("/seats/book", { numOfSeats });
+  return data.data;
+};
+
+export const cancelBooking = async (seatId) => {
+  const { data } = await api.post(`/seats/cancel/${seatId}`);
+  return data;
+};
+
+export const resetBookings = async () => {
+  const { data } = await api.post("/seats");
   return data;
 };
 

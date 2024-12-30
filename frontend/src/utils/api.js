@@ -1,8 +1,6 @@
 import axios from "axios";
 
-const BASE_URL =
-  process.env.REACT_APP_API_URL ||
-  "https://seat-booking-with-user-auth.vercel.app/api";
+const BASE_URL = "http://localhost:8080/api";
 
 // Create axios instance with default config
 const api = axios.create({
